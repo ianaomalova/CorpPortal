@@ -1,4 +1,5 @@
 <template>
+
 <!--    <button @click="editTable">Edit</button>-->
     <div class="form-check form-switch" >
         <form>
@@ -9,41 +10,41 @@
         </form>
     </div>
 
-    <div class="table-responsive">
+    <div class="table-responsive" style="width: 95%; margin-left: 2%;">
         <table class="table table-hover table-bordered border-primary">
         <thead style="font-size: 10px; height: auto">
             <tr>
 <!--                <td></td>-->
-                <th :colspan="cols" scope="col">{{ Object.values(this.arrayHeaders[0]).toString() }}</th>
+                <th style="border-top:2px solid #0d6efd; border-left:2px solid #0d6efd; border-right:2px solid #0d6efd; border-bottom:2px solid #0d6efd" :colspan="cols" scope="col">{{ Object.values(this.arrayHeaders[0]).toString() }}</th>
             </tr>
             <tr>
 <!--                <td></td>-->
-                <th :colspan="cols" scope="col">{{Object.values(this.arrayHeaders[1]).toString()}}</th>
+                <th style="border-left:2px solid #0d6efd; border-right:2px solid #0d6efd; border-bottom:2px solid #0d6efd" :colspan="cols" scope="col">{{Object.values(this.arrayHeaders[1]).toString()}}</th>
             </tr>
             <tr>
-                <td></td>
-                <th style="text-align:left" >Дата: </th>
-                <th :colspan="cols - 1" style="text-align:left" scope="col">{{Object.values(this.arrayHeaders[2]).toString()}}</th>
+                <td style="border-left:2px solid #0d6efd; " ></td>
+                <th style="text-align:left; " >Дата: </th>
+                <th :colspan="cols - 1" style="text-align:left; border-right:2px solid #0d6efd" scope="col">{{Object.values(this.arrayHeaders[2]).toString()}}</th>
             </tr>
             <tr>
-                <td></td>
+                <td style="border-left:2px solid #0d6efd"> </td>
                 <th style="text-align:left" >Дисциплина: </th>
-                <th :colspan="cols - 1" style="text-align:left" scope="col">{{Object.values(this.arrayHeaders[3]).toString()}}</th>
+                <th :colspan="cols - 1" style="text-align:left; border-right:2px solid #0d6efd" scope="col">{{Object.values(this.arrayHeaders[3]).toString()}}</th>
             </tr>
             <tr>
-                <td></td>
+                <td style="border-left:2px solid #0d6efd; border-left:2px solid #0d6efd"></td>
                 <th style="text-align:left">Группа: </th>
-                <th :colspan="cols - 1" style="text-align:left" scope="col">{{Object.values(this.arrayHeaders[4]).toString()}}</th>
+                <th :colspan="cols - 1" style="text-align:left; border-right:2px solid #0d6efd" scope="col">{{Object.values(this.arrayHeaders[4]).toString()}}</th>
             </tr>
             <tr>
-                <td></td>
+                <td style="border-left:2px solid #0d6efd"></td>
                 <th style="text-align:left">Кафедра: </th>
-                <th :colspan="cols - 1" style="text-align:left" scope="col">{{Object.values(this.arrayHeaders[5]).toString()}}</th>
+                <th :colspan="cols - 1" style="text-align:left; border-right:2px solid #0d6efd" scope="col">{{Object.values(this.arrayHeaders[5]).toString()}}</th>
             </tr>
             <tr>
-                <td style="border-bottom: 2px solid black;"></td>
+                <td style="border-bottom: 2px solid black; border-left:2px solid #0d6efd"></td>
                 <th style="border-bottom: 2px solid black; text-align:left">Преподаватель: </th>
-                <th style="border-bottom: 2px solid black; text-align:left" :colspan="cols - 1" scope="col">{{Object.values(this.arrayHeaders[6]).toString()}}</th>
+                <th style="border-bottom: 2px solid black; text-align:left; border-right:2px solid #0d6efd" :colspan="cols - 1" scope="col">{{Object.values(this.arrayHeaders[6]).toString()}}</th>
             </tr>
             <tr>
                 <th  rowspan="2" style="border-right: 2px solid black; border-left: 2px solid black" width="40px">№ п/п</th>
@@ -77,8 +78,8 @@
             </tr>
         </thead>
         <tbody class="table-striped table-group-divider table-striped" ref="body">
-                <tr v-if="checked" v-for="student in listOfStudent" :key="student.id">
-                    <th style="border-right: 2px solid black"> {{student.id}} </th>
+                <tr v-if="checked" v-for="student in listOfStudent" :key="student.id" @click="remove(student.id)">
+                    <th style="border-right: 2px solid black; border-left: 2px solid black"> {{student.id}} </th>
                     <th style="border-right: 2px solid black"> {{student.FIO}} </th>
                     <th class="M1M2"><input type="number" v-model="student.m1" ></th>
                     <th style="border-right: 2px solid black" class="M1M2"><input type="number" v-model="student.m2"></th>
@@ -101,21 +102,43 @@
                 </tr>
                 <tr v-else :key="student.id" v-for="(student, index) in listOfStudent">
                     <th v-if="checked2" v-for="key in gridColumnsKurs" :class="[{borderSt: key.includes('id') || key.includes('FIO') || key.includes('m2')
-                    || key.includes('teacher1') || key.includes('teacher2') || key.includes('teacher3') || key.includes('teacher4'), M1M2 : key.includes('m1') || key.includes('m2')}]"
+                    || key.includes('teacher1') || key.includes('teacher2') || key.includes('teacher3') || key.includes('teacher4'), M1M2 : key.includes('m1') || key.includes('m2'), borderLeftID : key.includes('id')}]"
                     >
                         {{student[key]}}
                     </th>
                     <th v-else v-for="key in gridColumns" :class="{borderSt: key.includes('id') || key.includes('FIO') || key.includes('m2')
-                    || key.includes('teacher1') || key.includes('teacher2') || key.includes('teacher3') || key.includes('teacher4'), M1M2 : key.includes('m1') || key.includes('m2')}"
+                    || key.includes('teacher1') || key.includes('teacher2') || key.includes('teacher3') || key.includes('teacher4'), M1M2 : key.includes('m1') || key.includes('m2'), borderLeftID : key.includes('id')}"
                     >
                         {{student[key]}}
                     </th>
                 </tr>
 
         </tbody>
+            <tfoot>
+                <button style="margin-top: 10px;" type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">+</button>
+                <div ref="modalAdd" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Добавить студента</h5>
+                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <input type="text" placeholder="Введите имя студента: " v-model="newStudent">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" @click="addStudent" data-bs-dismiss="modal">Сохранить</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tfoot>
     </table>
 
     </div>
+
 </template>
 
 <script>
@@ -140,7 +163,7 @@
                     'scope2', 'scopeText2', 'date2', 'teacher2', 'scope3', 'scopeText3', 'date3', 'teacher3',
                     'scope4', 'scopeText4', 'date4', 'teacher4'
                 ],
-                input1: '',
+                newStudent: '',
                 listOfStudent: [],
                 rows: 20,
                 cols: 25,
@@ -174,8 +197,15 @@
                 for(let i = 0; i < this.$refs.body; i++) {
                     console.log(this.$refs.body.rows[i]);
                 }
+            },
+            addStudent() {
+                let counter = this.listOfStudent.length + 1;
+                this.listOfStudent.push({id: counter, FIO : this.newStudent, m1: '', m2: '', scope1: '', scopeText1: '',
+                    date1: '', teacher1 :'', scope2: '', scopeText2 :'', date2 :'', teacher2 :'',
+                    scope3 : '', scopeText3 : '', date3 :'', teacher3 :'',
+                    scope4 :'', scopeText4 :'', date4 :'', teacher4 :'' })
+                this.newStudent = ''
             }
-
         }
     }
 </script>
@@ -196,7 +226,7 @@
         color: black;
     }
     .M1M2 {
-        background-color: #cfdefa;
+        background-color: rgba(127, 215, 251, 0.4);
     }
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
@@ -206,8 +236,12 @@ input[type="number"]::-webkit-inner-spin-button {
         border: 1px solid #0d6efd;
         border-right: 2px solid black;
     }
-.check {
-    display: flex;
-}
+    .borderLeftID {
+        border-left: 2px solid black
+    }
+    grayCol {
+        background: gray;
+    }
+
 
 </style>

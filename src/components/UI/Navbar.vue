@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary navbar-light" style="background-color: #6495ED">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary navbar-light" style="background-image: url(https://phonoteka.org/uploads/posts/2022-01/1643277308_4-phonoteka-org-p-sinii-fon-dlya-menyu-5.jpg)">
         <div class="container-fluid">
             <a class="navbar-brand" @click="this.$router.push('/')"><img :src="logo" alt="" width="55" height="35" class="d-inline-block align-text-top"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
